@@ -1,0 +1,7 @@
+"series","fredmd_tcode","transformation_used"
+"INDPRO",5,"100*dlog"
+"PCEPI",6,"100*dlog"
+"UNRATE",2,"diff"
+"SHADOWRATE",2,"level"
+"EXUSUKx",5,"100*dlog"
+"HOUST",4,"100*dlog"

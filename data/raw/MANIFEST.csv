@@ -1,0 +1,5 @@
+"file","source_url","access_date","size_bytes","sha256","included_in_package"
+"2025-12-md.csv","https://www.stlouisfed.org/-/media/project/frbstl/stlouisfed/research/fred-md/monthly/2025-12-md.csv","2026-10-03",661461,"a839c21b5702c5e66ca15d2ff1c426ddc8250d8f1c82122105b16fe2f6bb83d7","yes"
+"WuXiaShadowRate.xlsx","https://www.atlantafed.org/-/media/Project/Atlanta/FRBA/Documents/datafiles/cqer/research/wu-xia-shadow-federal-funds-rate/WuXiaShadowRate.xlsx","2026-10-03",56963,"3cbd34d08a2a6fac2cbbe7376bba7a3047a0aa361bb700abd8ee6c422de3672d","yes"
+"ACI_Data_Site.xlsx","https://actuariesclimateindex.org","2026-01",1918037,"7e3ecd8918104faad300ff2cc4b193a8ca0bab007a55ea57c029c56bdeda76b0","no"
+"noaa_macrobond_export.xlsx","https://www.macrobond.com","2026-02",997301,"1dd2e3fb11ab79379d40517256aaad66a80d7932d977073f32bc727684cc498f","no"

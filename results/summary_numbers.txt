@@ -1,0 +1,132 @@
+Numbers quoted in the paper, computed from the package results.
+Written by code/06_summary_numbers.R. [..] = paper location.
+Weights in percent of the index. IRF horizon h = 0..36, h = 0 the impact month; paper month = h + 1.
+Appendix inputs: supplied pairs-bootstrap and expanding-window results.
+
+== [Sec. 1, Sec. 2.4, Sec. 3.1, notes to Figs. 1-2] Panels, sample and VAR ==
+Constituents K: national 5 (Sea.Level, Rx5Day, T10, T90, WP90; CDD excluded), regional 34 (7 regions x 5 variables; no Sea.Level in MID), NOAA 82
+NOAA zones: 10 U.S. regional zones (Upper Midwest; Conterminous (Contiguous) United States (Lower 48); South; Ohio Valley; West; Southeast; Northern Rockies & Plains; Northeast; Northwest; Southwest) plus the Mauna Loa CO2 series (World)
+Climate components standardised on 1961-1990; macro transformations: INDPRO 100*dlog, PCEPI 100*dlog, UNRATE diff, SHADOWRATE level, EXUSUKx 100*dlog, HOUST 100*dlog
+Calendar 1975-01 to 2025-05: 605 months; COVID months 2020-01 to 2021-06 removed (18) -> 587; estimation sample ends 2025-04 (586 months)
+VAR(12) with constant, climate first: 585 observations (supplied band objects: n_obs = 585), 573 fitted residual rows, of which 12 gap-dummied
+Penalty selected by 5-fold contiguous block CV; lambda-hat: comp_national 11.5684, comp_regional 5.05658, comp_noaa 26.466, rank_national 7.38906, rank_regional 49.2324, rank_noaa 141785
+Bands: 68% level
+
+== [Sec. 3.2.1, Figs. 1-2; Sec. 1; Sec. 4] Trough of the cumulated INDPRO response (fixed-weights bands) ==
+benchmark      -0.160% at h = 11 (month 12), 68% band [-0.334, -0.093], ratio to benchmark 1.00; band below zero at h = 0-36; re-fit from step 1: -0.160% at h = 11 (max |diff| 1.6e-14)
+comp_national  -0.176% at h = 25 (month 26), 68% band [-0.411, -0.080], ratio to benchmark 1.10; band below zero at h = 0-3, 7-36; re-fit from step 1: -0.176% at h = 25 (max |diff| 0.0e+00)
+comp_regional  -0.239% at h = 34 (month 35), 68% band [-0.553, -0.125], ratio to benchmark 1.50; band below zero at h = 7-36; re-fit from step 1: -0.239% at h = 34 (max |diff| 3.1e-03)
+comp_noaa      -0.313% at h = 17 (month 18), 68% band [-0.578, -0.201], ratio to benchmark 1.96; band below zero at h = 4-36; re-fit from step 1: -0.313% at h = 17 (max |diff| 5.2e-03)
+rank_national  -0.100% at h = 8 (month 9), 68% band [-0.231, -0.032], ratio to benchmark 0.63; band below zero at h = 0-9, 11; re-fit from step 1: -0.100% at h = 8 (max |diff| 5.7e-07)
+rank_regional  -0.155% at h = 5 (month 6), 68% band [-0.251, -0.092], ratio to benchmark 0.97; band below zero at h = 0-9, 11; re-fit from step 1: -0.155% at h = 5 (max |diff| 1.1e-03)
+rank_noaa      -0.313% at h = 11 (month 12), 68% band [-0.504, -0.157], ratio to benchmark 1.96; band below zero at h = 0-36; re-fit from step 1: -0.314% at h = 11 (max |diff| 2.2e-03)
+comp_regional and comp_noaa troughs: 0.24% and 0.31% (0.239 / 0.313); 1.50 and 1.96 times the benchmark trough (0.16%)
+Largest assembled trough relative to the benchmark: 1.96 (rank_noaa)
+rank_regional vs benchmark, months 1-12 (h = 0..11): mean -0.114% vs -0.111%, trough -0.155% vs -0.160%; rank_regional below the benchmark at h = 1-6
+
+== [Sec. 3.2.1, Figs. 1-2] Unemployment and housing starts: horizons h at which the 68% band excludes zero ==
+benchmark      UNRATE above zero h = 0-1, 5-10, below zero h = none, point at h = 36 -0.003 | HOUST below zero h = 2, above zero h = 0; HOUST point > 0 at 32 of 37 horizons
+comp_national  UNRATE above zero h = none, below zero h = 1, 3-4, point at h = 36 +0.015 | HOUST below zero h = 1-3, 5-36, above zero h = none; HOUST point > 0 at 0 of 37 horizons
+comp_regional  UNRATE above zero h = 21-36, below zero h = none, point at h = 36 +0.059 | HOUST below zero h = 1-2, 5-36, above zero h = none; HOUST point > 0 at 1 of 37 horizons
+comp_noaa      UNRATE above zero h = 0, below zero h = 2, point at h = 36 -0.005 | HOUST below zero h = 0-5, above zero h = 10; HOUST point > 0 at 28 of 37 horizons
+rank_national  UNRATE above zero h = 0-1, below zero h = 30-36, point at h = 36 -0.033 | HOUST below zero h = none, above zero h = 0, 3, 11-17, 19-21, 24-36; HOUST point > 0 at 36 of 37 horizons
+rank_regional  UNRATE above zero h = 0-1, 5, below zero h = none, point at h = 36 -0.022 | HOUST below zero h = none, above zero h = 0, 3-4, 10-17, 19-21, 24-36; HOUST point > 0 at 35 of 37 horizons
+rank_noaa      UNRATE above zero h = 0-1, 3-15, below zero h = none, point at h = 36 +0.018 | HOUST below zero h = 0-5, above zero h = 15; HOUST point > 0 at 28 of 37 horizons
+
+== [Sec. 1; Sec. 3.2.2 and Fig. 3, lower left] ACI component weights (point estimates) ==
+National: Sea.Level 0.0%, Rx5Day 14.5%, T10 0.0%, T90 21.4%, WP90 64.1% (equal weight 20%)
+Regional, by variable family: Rx5Day 24.4%, Sea.Level 9.1%, T10 8.8%, T90 18.2%, WP90 39.4%
+Regional, WP90 by region (share of the whole index): ALA 0.0%, CEA 0.0%, CWP 0.0%, MID 28.6%, SEA 2.8%, SPL 8.0%, SWP 0.0%
+Regional, T90 by region: ALA 0.0%, CEA 0.0%, CWP 2.3%, MID 0.0%, SEA 0.0%, SPL 0.0%, SWP 15.9%
+Regional, Rx5Day by region: ALA 12.0%, CEA 0.0%, CWP 0.0%, MID 7.3%, SEA 2.0%, SPL 0.0%, SWP 3.1%
+Regional, total weight by region: ALA 13.7%, CEA 0.0%, CWP 3.7%, MID 35.9%, SEA 12.8%, SPL 12.0%, SWP 21.9%
+Regional, wind share within each region's own weight: ALA 0%, CEA 87%, CWP 0%, MID 80%, SEA 22%, SPL 67%, SWP 0%
+
+== [Sec. 3.2.2 and Fig. 4, lower left; App. C] NOAA component weights by region x variable cell (point estimates) ==
+Cells (percent):
+          Heat.DD Others Palmer.Z Precip. Temp.
+N.East        1.6    0.4     10.6     4.6   0.0
+N.Rockies     0.9    0.0      0.0    12.2   0.0
+N.West        0.6    0.0      0.0     0.0   5.3
+Ohio.V.       9.5    1.0      0.4     0.0  26.7
+Rest          5.4   13.1      5.4     0.0   0.0
+Up.MidW.      1.8    0.4      0.2     0.0   0.0
+Variable families: Heat.DD 19.7%, Others 14.8%, Palmer.Z 16.6%, Precip. 16.8%, Temp. 32.0%
+Ohio Valley thermal block (Temp. + Heat.DD): 36.16%; Northern Rockies + Northeast hydroclimate (Precip. + Palmer.Z): 27.45%
+
+== [Sec. 3.2.2 and Figs. 3-4, lower right; App. B, NOAA panel] Rank weights (point estimates) ==
+Tails = ranks below the 20th or above the 80th percentile; maxima of the raw profile and of the displayed (smoothed) profile, left and right halves
+rank_national: K = 5, flat weight 20.00%; raw max left 21.392% (rank 2, pct 30), right 38.710% (rank 4, pct 70); displayed max left 21.392% (pct 25), right 38.710% (pct 75); largest single rank 38.710%
+rank_national: tail mass 22.0%, 30th-55th percentile mass 39.26% (21.39% with percentile j/K), 25th-55th 39.26%
+rank_national: cumulative mass up to the 10th, 20th, ..., 90th percentile: 14.7, 14.7, 36.1, 36.1, 54.0, 54.0, 92.7, 92.7, 100.0
+rank_regional: K = 34, flat weight 2.94%; raw max left 13.724% (rank 3, pct 7), right 14.833% (rank 29, pct 84); displayed max left 5.968% (pct 19), right 5.502% (pct 96); largest single rank 14.833%
+rank_regional: tail mass 50.4%, 30th-55th percentile mass 12.49% (12.49% with percentile j/K), 25th-55th 25.01%
+rank_regional: cumulative mass up to the 10th, 20th, ..., 90th percentile: 17.5, 20.9, 36.3, 48.3, 48.3, 59.2, 66.8, 70.5, 85.3
+rank_noaa: K = 82, flat weight 1.22%; raw max left 2.921% (rank 8, pct 9), right 2.585% (rank 77, pct 93); displayed max left 2.947% (pct 8), right 2.591% (pct 94); largest single rank 2.921%
+rank_noaa: tail mass 75.2%, 30th-55th percentile mass 0.17% (0.43% with percentile j/K), 25th-55th 3.30%
+rank_noaa: cumulative mass up to the 10th, 20th, ..., 90th percentile: 19.1, 39.7, 49.0, 49.2, 49.2, 49.2, 51.4, 64.5, 82.8
+rank_national raw profile (ranks 1-5): 14.72, 21.39, 17.87, 38.71, 7.31
+
+== [App. A.1] Fixed-weights residual bootstrap (supplied band objects) ==
+benchmark      n_obs 585, fitted residuals 573 (floor(n^(1/3)) = 8), block length 8, B_outer 1000, B_inner 100, B_se 200, seed 123, all bands finite TRUE
+comp_national  n_obs 585, fitted residuals 573 (floor(n^(1/3)) = 8), block length 8, B_outer 1000, B_inner 100, B_se 200, seed 123, all bands finite TRUE
+comp_regional  n_obs 585, fitted residuals 573 (floor(n^(1/3)) = 8), block length 8, B_outer 1000, B_inner 100, B_se 200, seed 123, all bands finite TRUE
+comp_noaa      n_obs 585, fitted residuals 573 (floor(n^(1/3)) = 8), block length 8, B_outer 1000, B_inner 100, B_se 200, seed 123, all bands finite TRUE
+rank_national  n_obs 585, fitted residuals 573 (floor(n^(1/3)) = 8), block length 8, B_outer 1000, B_inner 100, B_se 200, seed 123, all bands finite TRUE
+rank_regional  n_obs 585, fitted residuals 573 (floor(n^(1/3)) = 8), block length 8, B_outer 1000, B_inner 100, B_se 200, seed 123, all bands finite TRUE
+rank_noaa      n_obs 585, fitted residuals 573 (floor(n^(1/3)) = 8), block length 8, B_outer 1000, B_inner 100, B_se 200, seed 123, all bands finite TRUE
+
+== [App. A, App. A.2 and notes to Figs. A.1-A.2] Weight-reestimating pairs bootstrap: draws ==
+comp_national  draws 1000, weight solutions 999, usable VAR fits 999, pairs 560, block length 13 = max(p + 1, floor(560^(1/3)) = 8)
+comp_regional  draws 1000, weight solutions 1000, usable VAR fits 1000, pairs 560, block length 13 = max(p + 1, floor(560^(1/3)) = 8)
+comp_noaa      draws 1000, weight solutions 1000, usable VAR fits 1000, pairs 560, block length 13 = max(p + 1, floor(560^(1/3)) = 8)
+rank_national  draws 1000, weight solutions 1000, usable VAR fits 1000, pairs 560, block length 13 = max(p + 1, floor(560^(1/3)) = 8)
+rank_regional  draws 1000, weight solutions 1000, usable VAR fits 1000, pairs 560, block length 13 = max(p + 1, floor(560^(1/3)) = 8)
+rank_noaa      draws 1000, weight solutions 1000, usable VAR fits 1000, pairs 560, block length 13 = max(p + 1, floor(560^(1/3)) = 8)
+
+== [App. A.2, Fig. A.1] Bootstrap weights: point, median, 68% and 90% intervals ==
+comp_national: Sea.Level 0.0 (med 0.0; 68% 0.0-1.0; 90% 0.0-6.7); Rx5Day 14.5 (med 10.3; 68% 0.0-32.5; 90% 0.0-51.3); T10 0.0 (med 0.0; 68% 0.0-0.0; 90% 0.0-13.7); T90 21.4 (med 20.8; 68% 5.0-34.3; 90% 0.0-45.0); WP90 64.1 (med 65.1; 68% 35.2-86.4; 90% 10.0-97.2)
+comp_regional: Sea.Level 9.1 (med 7.4; 68% 2.5-13.1; 90% 0.0-17.0); Rx5Day 24.4 (med 20.5; 68% 11.5-29.0; 90% 6.2-36.6); T10 8.8 (med 8.2; 68% 1.6-21.7; 90% 0.0-34.6); T90 18.2 (med 23.2; 68% 13.1-33.3; 90% 6.4-39.0); WP90 39.4 (med 37.1; 68% 27.1-47.8; 90% 18.4-55.7)
+comp_noaa: Others 14.8 (med 16.1; 68% 11.3-21.9; 90% 8.6-26.6); Temp. 32.0 (med 32.1; 68% 22.3-41.7; 90% 16.8-48.2); Precip. 16.8 (med 17.5; 68% 7.6-28.0; 90% 3.2-35.3); Heat.DD 19.7 (med 22.9; 68% 17.0-29.3; 90% 12.8-34.4); Palmer.Z 16.6 (med 9.6; 68% 3.6-17.0; 90% 0.5-21.4)
+rank_national: displayed profile peaks at position 4 of 5 (rank j/K = 80%, plotted pct 75) with 38.71% (68% 31.34-46.78)
+rank_regional: displayed profile peaks at position 6 of 27 (rank j/K = 22%, plotted pct 19) with 5.97% (68% 2.36-6.89)
+rank_noaa: displayed profile peaks at position 7 of 81 (rank j/K = 9%, plotted pct 8) with 2.95% (68% 1.65-3.41)
+comp_regional: WP90.MID 68% 3.9-26.3, WP90.SPL 68% 0.0-12.6; WP90.MID > WP90.SPL in 78% of draws
+
+== [App. A.2, Fig. A.2] Point index inside its pointwise bootstrap bands (share of plotted dates) ==
+comp_national  605 dates: inside 68% band 100.0%, inside 90% band 100.0%
+comp_regional  605 dates: inside 68% band 86.8%, inside 90% band 100.0%
+comp_noaa      605 dates: inside 68% band 89.8%, inside 90% band 98.5%
+rank_national  605 dates: inside 68% band 100.0%, inside 90% band 100.0%
+rank_regional  605 dates: inside 68% band 98.7%, inside 90% band 100.0%
+rank_noaa      605 dates: inside 68% band 99.8%, inside 90% band 100.0%
+Average over component space: 68% 92.2%; over rank space: 68% 99.5%
+
+== [App. A.2, Figs. A.3-A.4] INDPRO under the weight-reestimating pairs bootstrap (68% basic bands) ==
+comp_national  999 draws; trough -0.176% at h = 25, pairs band [-0.359, -0.019] (fixed-weights [-0.411, -0.080]); pairs band below zero at h = 0-3, 7-12, 16, 18-31
+comp_regional  1000 draws; trough -0.239% at h = 34, pairs band [-0.408, -0.027] (fixed-weights [-0.553, -0.125]); pairs band below zero at h = 17-36
+comp_noaa      1000 draws; trough -0.313% at h = 17, pairs band [-0.649, -0.171] (fixed-weights [-0.578, -0.201]); pairs band below zero at h = 6-36
+rank_national  1000 draws; trough -0.100% at h = 8, pairs band [-0.227, -0.018] (fixed-weights [-0.231, -0.032]); pairs band below zero at h = 0-2, 4-5, 7-8
+rank_regional  1000 draws; trough -0.155% at h = 5, pairs band [-0.245, -0.075] (fixed-weights [-0.251, -0.092]); pairs band below zero at h = 0-8
+rank_noaa      1000 draws; trough -0.313% at h = 11, pairs band [-0.521, -0.229] (fixed-weights [-0.504, -0.157]); pairs band below zero at h = 0-36
+
+== [App. A.3, Fig. A.5] Expanding-window shares (COVID months at 2019-12 values, centred 12-month mean as plotted) ==
+comp_national (2005-10 to 2025-03): Sea.Level 0.0->0.0% (mean 0.0, min 0.0 2024-12, max 0.0 2021-12); Rx5Day 11.7->15.4% (mean 9.7, min 0.0 2011-04, max 16.2 2023-02); T10 0.0->0.0% (mean 0.0, min 0.0 2007-11, max 0.0 2018-08); T90 24.3->21.9% (mean 17.5, min 5.7 2013-09, max 25.8 2008-03); WP90 64.0->62.8% (mean 72.8, min 60.7 2008-05, max 93.9 2013-04)
+comp_national, 2010-2015: Rx5Day min 0.0% (2011-04), WP90 min 71.8%
+comp_regional (2005-10 to 2025-03): Sea.Level 8.5->8.7% (mean 6.6, min 4.9 2013-02, max 8.8 2015-07); Rx5Day 35.2->22.7% (mean 29.2, min 20.9 2024-03, max 35.6 2006-12); T10 0.0->7.9% (mean 5.8, min 0.0 2006-03, max 12.2 2017-02); T90 19.5->21.0% (mean 17.5, min 11.1 2013-05, max 23.3 2024-03); WP90 36.8->39.7% (mean 40.8, min 36.4 2016-01, max 50.5 2013-05)
+comp_noaa (2005-10 to 2025-03): Others 22.2->14.7% (mean 17.3, min 12.4 2023-07, max 23.1 2008-12); Temp. 23.2->32.5% (mean 29.8, min 23.2 2005-10, max 39.2 2016-03); Precip. 25.4->17.2% (mean 20.9, min 8.5 2016-03, max 28.8 2011-10); Heat.DD 7.5->19.6% (mean 15.5, min 7.5 2006-01, max 20.9 2023-01); Palmer.Z 21.7->16.0% (mean 16.5, min 5.3 2013-04, max 25.2 2008-04)
+rank_national (2005-10 to 2025-03): Q1 19.8->14.7% (mean 16.9, min 14.2 2017-09, max 20.8 2008-12); Q2 19.0->21.2% (mean 19.4, min 14.1 2013-07, max 22.8 2021-12); Q3 13.4->18.3% (mean 16.9, min 12.6 2007-04, max 23.6 2013-08); Q4 34.7->38.6% (mean 38.0, min 34.0 2006-07, max 40.2 2016-11); Q5 13.0->7.2% (mean 8.8, min 5.4 2014-12, max 13.7 2006-11)
+rank_regional (2005-10 to 2025-03): Q1 27.9->21.7% (mean 22.5, min 19.2 2020-05, max 27.9 2005-10); Q2 15.8->22.2% (mean 23.2, min 15.8 2005-10, max 30.3 2011-03); Q3 10.5->13.7% (mean 10.4, min 5.0 2008-06, max 17.0 2021-12); Q4 1.1->17.3% (mean 12.2, min 0.0 2008-11, max 23.8 2015-04); Q5 44.7->25.2% (mean 31.8, min 24.6 2024-06, max 44.7 2005-10)
+rank_regional Q4, annual means 2005-2025: 1 1 0 0 0 1 1 4 12 20 22 17 18 17 19 21 20 20 20 20 17
+rank_regional Q5, annual means 2005-2025: 45 44 43 42 40 39 38 36 33 28 27 27 27 27 25 25 25 25 26 25 25
+rank_noaa (2005-10 to 2025-03): Q1 43.6->40.0% (mean 40.8, min 38.4 2022-06, max 43.8 2013-02); Q2 0.9->7.1% (mean 2.5, min 0.6 2009-05, max 7.1 2025-03); Q3 0.0->0.3% (mean 0.4, min 0.0 2005-10, max 1.1 2021-09); Q4 12.7->15.7% (mean 18.4, min 12.0 2013-01, max 22.7 2022-07); Q5 42.9->36.9% (mean 37.9, min 33.9 2022-12, max 42.9 2005-10)
+
+== [App. B, Fig. B.1] Rank-implied usage U of named components ==
+NOAA family U: Heat.DD +13.9%, Others -6.6%, Palmer.Z +1.1%, Precip. +0.7%, Temp. +13.3%; Spearman with the component-space family weights 0.80
+ACI national U by component: Sea.Level -1.6%, Rx5Day +2.5%, T10 +1.8%, T90 +0.8%, WP90 -3.5%
+ACI regional U, family means: Rx5Day +1.9%, Sea.Level +0.5%, T10 +3.7%, T90 -5.2%, WP90 -0.8%; components range -10.5% to +10.8%
+
+== [App. C, Tables C.1-C.2] NOAA aggregation tables vs data/labels_noaa.csv ==
+Regions kept separately: Up.MidW., Ohio.V., N.Rockies, N.East, N.West; pooled into Rest: World; Conterminous (Contiguous) United States (Lower 48); South; West; Southeast; Southwest
+Variable families: Temp., Precip., Heat.DD, Palmer.Z; pooled into Others: Emissions, Carbon Dioxide, Mauna Loa, Hawaii, Average of Period; Emissions, Carbon Dioxide, Mauna Loa, Hawaii, Trend, Average of Period; Palmer Drought Severity Index, Index; Cooling Degree Days; Palmer Hydrological Drought Index, Index; Palmer Modified Drought Index, Index
+Number of raw NOAA series: 82; region x variable cells with at least one series: 30
